@@ -1,7 +1,5 @@
 package com.Jasetol.utils;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
-
 import java.io.*;
 
 public class SerWithUnSer {
@@ -30,14 +28,14 @@ public class SerWithUnSer {
     }
 
     public static byte[] serialize(Object object) throws Exception{
-    if (ParseArgs.file != null){
-        serializeObjectToFile(object);
-        return new byte[]{};
-    }else {
-        byte[] bytes = serializeObject(object);
-        return bytes;
+        if (ParseArgs.file != null){
+            serializeObjectToFile(object);
+            return new byte[]{};
+        }else {
+            byte[] bytes = serializeObject(object);
+            return bytes;
+        }
     }
-}
 
     public static void serializeObjectToFile(Object object) throws Exception{
         FileOutputStream fileOutputStream = new FileOutputStream(ParseArgs.file);
@@ -50,7 +48,7 @@ public class SerWithUnSer {
     }
 
     public static byte[] serializeObject(Object object) throws Exception{  // 序列化对象
-        ByteOutputStream byteOutputStream = new ByteOutputStream();
+        ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
         objectOutputStream.writeObject(object);
         byte[] bytes = byteOutputStream.toByteArray();

